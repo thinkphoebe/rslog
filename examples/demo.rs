@@ -167,5 +167,9 @@ fn main() {
     // log_ori::info!(a; "Something of interest");
 
     let a = 123;
+    log::error!("{}", a);
+    log::warn!("{}", a);
     log::info!("{}", a);
+    log::debug!("{}", a);
+    log::trace!("{}", a);
 }

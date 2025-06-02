@@ -113,7 +113,12 @@ macro_rules! error {
     (target: $target:expr, $($arg:tt)+) => ($crate::log!(target: $target, $crate::Level::Error, $($arg)+));
 
     // error!("a {} event", "log")
-    ($($arg:tt)+) => ($crate::log!($crate::Level::Error, "{} E[{},L{}|{}] {}", $crate::datetime!(), $crate::file_path!(), line!(), $crate::type_name!(), format_args!($($arg)+)))
+    // ($($arg:tt)+) => ({
+    //     $crate::log!($crate::Level::Error, "{} E {} *** {},L{} | {}", $crate::datetime!(), format_args!($($arg)+), $crate::file_path!(), line!(), $crate::type_name!());
+    // });
+    ($($arg:tt)+) => ({
+        $crate::log!($crate::Level::Error, "{} E[{},L{}|{}] {}", $crate::datetime!(), $crate::file_path!(), line!(), $crate::type_name!(), format_args!($($arg)+));
+    });
 }
 
 #[macro_export]
@@ -123,7 +128,12 @@ macro_rules! warn {
     (target: $target:expr, $($arg:tt)+) => ($crate::log!(target: $target, $crate::Level::Warn, $($arg)+));
 
     // warn!("a {} event", "log")
-    ($($arg:tt)+) => ($crate::log!($crate::Level::Warn, "{} W[{},L{}|{}] {}", $crate::datetime!(), $crate::file_path!(), line!(), $crate::type_name!(), format_args!($($arg)+)))
+    // ($($arg:tt)+) => ({
+    //     $crate::log!($crate::Level::Warn, "{} W {} *** {},L{} | {}", $crate::datetime!(), format_args!($($arg)+), $crate::file_path!(), line!(), $crate::type_name!());
+    // });
+    ($($arg:tt)+) => ({
+        $crate::log!($crate::Level::Warn, "{} W[{},L{}|{}] {}", $crate::datetime!(), $crate::file_path!(), line!(), $crate::type_name!(), format_args!($($arg)+));
+    });
 }
 
 #[macro_export]
@@ -133,7 +143,12 @@ macro_rules! info {
     (target: $target:expr, $($arg:tt)+) => ($crate::log!(target: $target, $crate::Level::Info, $($arg)+));
 
     // info!("a {} event", "log")
-    ($($arg:tt)+) => ($crate::log!($crate::Level::Info, "{} I[{},L{}|{}] {}", $crate::datetime!(), $crate::file_path!(), line!(), $crate::type_name!(), format_args!($($arg)+)))
+    // ($($arg:tt)+) => ({
+    //     $crate::log!($crate::Level::Info, "{} I {} *** {},L{} | {}", $crate::datetime!(), format_args!($($arg)+), $crate::file_path!(), line!(), $crate::type_name!());
+    // });
+    ($($arg:tt)+) => ({
+        $crate::log!($crate::Level::Info, "{} I[{},L{}|{}] {}", $crate::datetime!(), $crate::file_path!(), line!(), $crate::type_name!(), format_args!($($arg)+));
+    });
 }
 
 #[macro_export]
@@ -143,7 +158,12 @@ macro_rules! debug {
     (target: $target:expr, $($arg:tt)+) => ($crate::log!(target: $target, $crate::Level::Debug, $($arg)+));
 
     // debug!("a {} event", "log")
-    ($($arg:tt)+) => ($crate::log!($crate::Level::Debug, "{} D[{},L{}|{}] {}", $crate::datetime!(), $crate::file_path!(), line!(), $crate::type_name!(), format_args!($($arg)+)))
+    // ($($arg:tt)+) => ({
+    //     $crate::log!($crate::Level::Debug, "{} D {} *** {},L{} | {}", $crate::datetime!(), format_args!($($arg)+), $crate::file_path!(), line!(), $crate::type_name!());
+    // });
+    ($($arg:tt)+) => ({
+        $crate::log!($crate::Level::Debug, "{} D[{},L{}|{}] {}", $crate::datetime!(), $crate::file_path!(), line!(), $crate::type_name!(), format_args!($($arg)+));
+    });
 }
 
 #[macro_export]
@@ -153,7 +173,12 @@ macro_rules! trace {
     (target: $target:expr, $($arg:tt)+) => ($crate::log!(target: $target, $crate::Level::Trace, $($arg)+));
 
     // trace!("a {} event", "log")
-    ($($arg:tt)+) => ($crate::log!($crate::Level::Trace, "{} T[{},L{}|{}] {}", $crate::datetime!(), $crate::file_path!(), line!(), $crate::type_name!(), format_args!($($arg)+)))
+    // ($($arg:tt)+) => ({
+    //     $crate::log!($crate::Level::Trace, "{} T {} *** {},L{} | {}", $crate::datetime!(), format_args!($($arg)+), $crate::file_path!(), line!(), $crate::type_name!());
+    // });
+    ($($arg:tt)+) => ({
+        $crate::log!($crate::Level::Trace, "{} T[{},L{}|{}] {}", $crate::datetime!(), $crate::file_path!(), line!(), $crate::type_name!(), format_args!($($arg)+));
+    });
 }
 
 // =============================================================================
@@ -162,29 +187,29 @@ macro_rules! trace {
 #[macro_export]
 macro_rules! error_raw {
     (target: $target:expr, $($arg:tt)+) => ($crate::log!(target: $target, $crate::Level::Error, $($arg)+));
-    ($($arg:tt)+) => ($crate::log!($crate::Level::Error, "{} E {}", $crate::datetime!(), format_args!($($arg)+)))
+    ($($arg:tt)+) => ($crate::log!($crate::Level::Error, "{} E{}", $crate::datetime!(), format_args!($($arg)+)))
 }
 
 #[macro_export]
 macro_rules! warn_raw {
     (target: $target:expr, $($arg:tt)+) => ($crate::log!(target: $target, $crate::Level::Warn, $($arg)+));
-    ($($arg:tt)+) => ($crate::log!($crate::Level::Warn, "{} W {}", $crate::datetime!(), format_args!($($arg)+)))
+    ($($arg:tt)+) => ($crate::log!($crate::Level::Warn, "{} W{}", $crate::datetime!(), format_args!($($arg)+)))
 }
 
 #[macro_export]
 macro_rules! info_raw {
     (target: $target:expr, $($arg:tt)+) => ($crate::log!(target: $target, $crate::Level::Info, $($arg)+));
-    ($($arg:tt)+) => ($crate::log!($crate::Level::Info, "{} I {}", $crate::datetime!(), format_args!($($arg)+)))
+    ($($arg:tt)+) => ($crate::log!($crate::Level::Info, "{} I{}", $crate::datetime!(), format_args!($($arg)+)))
 }
 
 #[macro_export]
 macro_rules! debug_raw {
     (target: $target:expr, $($arg:tt)+) => ($crate::log!(target: $target, $crate::Level::Debug, $($arg)+));
-    ($($arg:tt)+) => ($crate::log!($crate::Level::Debug, "{} D {}", $crate::datetime!(), format_args!($($arg)+)))
+    ($($arg:tt)+) => ($crate::log!($crate::Level::Debug, "{} D{}", $crate::datetime!(), format_args!($($arg)+)))
 }
 
 #[macro_export]
 macro_rules! trace_raw {
     (target: $target:expr, $($arg:tt)+) => ($crate::log!(target: $target, $crate::Level::Trace, $($arg)+));
-    ($($arg:tt)+) => ($crate::log!($crate::Level::Trace, "{} T {}", $crate::datetime!(), format_args!($($arg)+)))
+    ($($arg:tt)+) => ($crate::log!($crate::Level::Trace, "{} T{}", $crate::datetime!(), format_args!($($arg)+)))
 }
