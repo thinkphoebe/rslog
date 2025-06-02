@@ -155,3 +155,36 @@ macro_rules! trace {
     // trace!("a {} event", "log")
     ($($arg:tt)+) => ($crate::log!($crate::Level::Trace, "{} T[{},L{}|{}] {}", $crate::datetime!(), $crate::file_path!(), line!(), $crate::type_name!(), format_args!($($arg)+)))
 }
+
+// =============================================================================
+// 以下 *_raw 宏不打印 file_path、line、type_name，用于转发 ffi 等非 rust 模块的日志
+
+#[macro_export]
+macro_rules! error_raw {
+    (target: $target:expr, $($arg:tt)+) => ($crate::log!(target: $target, $crate::Level::Error, $($arg)+));
+    ($($arg:tt)+) => ($crate::log!($crate::Level::Error, "{} E {}", $crate::datetime!(), format_args!($($arg)+)))
+}
+
+#[macro_export]
+macro_rules! warn_raw {
+    (target: $target:expr, $($arg:tt)+) => ($crate::log!(target: $target, $crate::Level::Warn, $($arg)+));
+    ($($arg:tt)+) => ($crate::log!($crate::Level::Warn, "{} W {}", $crate::datetime!(), format_args!($($arg)+)))
+}
+
+#[macro_export]
+macro_rules! info_raw {
+    (target: $target:expr, $($arg:tt)+) => ($crate::log!(target: $target, $crate::Level::Info, $($arg)+));
+    ($($arg:tt)+) => ($crate::log!($crate::Level::Info, "{} I {}", $crate::datetime!(), format_args!($($arg)+)))
+}
+
+#[macro_export]
+macro_rules! debug_raw {
+    (target: $target:expr, $($arg:tt)+) => ($crate::log!(target: $target, $crate::Level::Debug, $($arg)+));
+    ($($arg:tt)+) => ($crate::log!($crate::Level::Debug, "{} D {}", $crate::datetime!(), format_args!($($arg)+)))
+}
+
+#[macro_export]
+macro_rules! trace_raw {
+    (target: $target:expr, $($arg:tt)+) => ($crate::log!(target: $target, $crate::Level::Trace, $($arg)+));
+    ($($arg:tt)+) => ($crate::log!($crate::Level::Trace, "{} T {}", $crate::datetime!(), format_args!($($arg)+)))
+}
